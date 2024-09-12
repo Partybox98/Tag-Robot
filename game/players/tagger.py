@@ -3,9 +3,10 @@ import pygame
 
 class Tagger(Player):
   cornered = False
-  cornered_dis = 50
+  cornered_dis = 100 # find correct value
+  HEIGHT = WIDTH = 1000
   
-  def corner1(self):
+  def corner1(self): # fix movement to corner better
     run = self.other_player.pos
     
     if run.x < self.pos.x:
@@ -16,14 +17,14 @@ class Tagger(Player):
       self.move_up()
     else:
       self.move_down()
-      
+    # change to give directions for cornering
     if (run.x < self.cornered_dis and run.y < self.cornered_dis):
       return True, "TL" # Cornered = True, run_pos = top left / "TL"
-    elif (run.x < self.cornered_dis and run.y < self.cornered_dis):
+    elif (run.x < self.cornered_dis and run.y > self.HEIGHT - self.cornered_dis):
       return True, "BL" # Cornered = True, run_pos = bottom left / "BL"
-    elif (run.x < self.cornered_dis and run.y < self.cornered_dis):
+    elif (run.x > self.HEIGHT - self.cornered_dis and run.y < self.cornered_dis):
       return True, "TR" # Cornered = True, run_pos = top right / "TR"
-    elif (run.x < self.cornered_dis and run.y < self.cornered_dis):
+    elif (run.x > self.HEIGHT - self.cornered_dis and run.y < self.HEIGHT - self.cornered_dis):
       return True, "BR" # Cornered = True, run_pos = bottom right / "BR"
     else:
       return False, ""

@@ -1,6 +1,7 @@
 from pygame import Vector2
 import pygame
 import math
+
 WIDTH = HEIGHT = 1000
 class Player:
   def __init__(self) -> None:
@@ -33,8 +34,10 @@ class Player:
       # since a^2 + b^2 <= 1 (otherwise diagonal movement would be faster), we have to do some transformations.
 
       # a^2 + b^2 > 1, which means they are going at sqrt(2) times the normal rate.
-      if self.movement_vector.x ** 2 + self.movement_vector.y ** 2 > 1:
-          self.movement_vector /= math.sqrt(2)
+      sqrtsum = math.sqrt(self.movement_vector.x ** 2 + self.movement_vector.y ** 2)
+      if sqrtsum == 0: return
+
+      self.movement_vector /= sqrtsum
   
   def __stop__(self):
       self.movement_vector = Vector2()

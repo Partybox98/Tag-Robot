@@ -17,9 +17,11 @@ Python
 
 Run the following commands:
 ## Windows
-python pip install requirements.txt  
-python game.py
+
+### python pip install -r requirements.txt  
+### python game.py
 
 ## Linux/Mac
-pip install requirements.txt
-python game.py
+
+### pip install -r requirements.txt
+### python game.py

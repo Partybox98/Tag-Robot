@@ -17,12 +17,13 @@ class Tagger(Player):
       self.move_up()
     else:
       self.move_down()
-    if (self.pos.x < (self.WIDTH/2 + 10) and self.pos.x > (self.WIDTH/2 - 10) and self.pos.y < (self.HEIGHT/2 + 10) and self.pos.y > (self.HEIGHT/2 - 10)):
+    # if (self.pos.x < (self.WIDTH/2 + 10) and self.pos.x > (self.WIDTH/2 - 10) and self.pos.y < (self.HEIGHT/2 + 10) and self.pos.y > (self.HEIGHT/2 - 10)):
+    if (self.within(self.pos.x,self.WIDTH/2,10) and self.within(self.pos.y,self.HEIGHT/2,10)):
       return True
 
-  # def gap(run):
-  #   if (run.pos.x):
-  #     return True
+  def gap(run):
+    if (run.pos.x == 0):
+      return True
 
   
   # called once every frame.
@@ -49,8 +50,8 @@ class Tagger(Player):
         
         
         
-  def within(a,b,d):
-    if ((b - d) < a < (b + d)):
+  def within(self,a,b,d):
+    if ((b - d) <= a <= (b + d)):
       return True
     else:
       return False

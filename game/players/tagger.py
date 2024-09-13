@@ -3,10 +3,9 @@ from pygame import Vector2
 import pygame
 
 class Tagger(Player):
-  cornered = False
-  cornered_dis = 100 # find correct value
   HEIGHT = WIDTH = 1000
   centered = False
+  gapv = False
   
   def center(self):
     dest = Vector2(self.WIDTH/2, self.HEIGHT/2)
@@ -18,16 +17,13 @@ class Tagger(Player):
       self.move_up()
     else:
       self.move_down()
-      
-    if (self.pos == dest):
+    if (self.pos.x < (self.WIDTH/2 + 10) and self.pos.x > (self.WIDTH/2 - 10) and self.pos.y < (self.HEIGHT/2 + 10) and self.pos.y > (self.HEIGHT/2 - 10)):
       return True
-    else:
-      return self.centered
 
+  # def gap(run):
+  #   if (run.pos.x):
+  #     return True
 
-  
-  
-  
   
   # called once every frame.
   def act(self):
@@ -35,17 +31,9 @@ class Tagger(Player):
     run = self.other_player.pos
     
     if (self.centered):
-      print("done")
+      self.gapv = self.gap(run)
     else:
       self.centered = self.center()
-    
-
-
-
-
-
-  
-    
     
 
   
@@ -61,7 +49,11 @@ class Tagger(Player):
         
         
         
-        
+  def within(a,b,d):
+    if ((b - d) < a < (b + d)):
+      return True
+    else:
+      return False
         
         
         

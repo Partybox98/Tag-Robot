@@ -1,10 +1,11 @@
-from player_controls import Player
+from player_controls import Player,Utils
 from pygame import Vector2
 import pygame
 
 class Tagger(Player):
-  HEIGHT = WIDTH = 1000
-  state = 0 # 0 is close gap, 1 is wall, 2 is chase?
+  HEIGHT = Utils.get_screen_height
+  WIDTH = Utils.get_screen_width
+  state = 0 # 0 is close gap, 1 is wall, 2 is chase
   
 
   def gap(self,run,dis):
@@ -43,7 +44,9 @@ class Tagger(Player):
   # called once every frame.
   def act(self):
     dis = 220
+    prev = run # might cause errors if used before first run define
     run = self.other_player.pos
+    
     
     if (self.state == 0):
       self.state = self.gap(run,dis)
@@ -51,6 +54,7 @@ class Tagger(Player):
       self.state = self.wall(run,dis+20)
     elif (self.state == 2):
       print("done") # make a prediction chase function to finish catching it
+      self.predChase(prev)
     else:
       print("error")
     
@@ -85,3 +89,9 @@ class Tagger(Player):
     #   self.move_up()
     # else:
     #   self.move_down()
+    
+    
+    
+    
+  def predChase(self,prev): #get previous position and current position to calc vector and intercept
+    return

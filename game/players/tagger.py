@@ -6,6 +6,7 @@ class Tagger(Player):
   HEIGHT = Utils.get_screen_height
   WIDTH = Utils.get_screen_width
   state = 0 # 0 is close gap, 1 is wall, 2 is chase
+  run = 0
   
 
   def gap(self,run,dis):
@@ -44,17 +45,17 @@ class Tagger(Player):
   # called once every frame.
   def act(self):
     dis = 220
-    prev = run # might cause errors if used before first run define
-    run = self.other_player.pos
+    prev = self.run # might cause errors if used before first run define
+    self.run = self.other_player.pos
     
     
     if (self.state == 0):
-      self.state = self.gap(run,dis)
+      self.state = self.gap(self.run,dis)
     elif (self.state == 1):
-      self.state = self.wall(run,dis+20)
+      self.state = self.wall(self.run,dis+20)
     elif (self.state == 2):
-      print("done") # make a prediction chase function to finish catching it
-      self.predChase(prev)
+      # print("done") # make a prediction chase function to finish catching it
+      self.predChase(self.run,prev)
     else:
       print("error")
     
@@ -93,5 +94,21 @@ class Tagger(Player):
     
     
     
-  def predChase(self,prev): #get previous position and current position to calc vector and intercept
-    return
+  def predChase(self,run,prev): #get previous position and current position to calc vector and intercept
+    
+    dir = Vector2(prev.x-run.x,prev.y-run.y)
+    print(f"{prev.x},{run.x},{prev.y},{run.y}")
+    print(dir)
+    
+    # self.set_movement_vector(dir)
+    dest = run+(dir*200)
+
+    if dest.x < self.pos.x:
+      self.move_left()
+    else:
+      self.move_right()
+    if dest.y < self.pos.y:
+      self.move_up()
+    else:
+      self.move_down()
+    
